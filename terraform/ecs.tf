@@ -4,6 +4,10 @@ resource "aws_ecs_cluster" "main" {
   name = "cb-cluster"
 }
 
+resource "aws_ecr_repository" "worker" {
+    name  = "worker"
+}
+
 data "template_file" "cb_app" {
   template = file("./templates/ecs/cb_app.json.tpl")
 
