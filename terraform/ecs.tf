@@ -4,10 +4,6 @@ resource "aws_ecs_cluster" "main" {
   name = "cb-cluster"
 }
 
-resource "aws_ecr_repository" "worker" {
-    name  = "worker"
-}
-
 data "template_file" "cb_app" {
   template = file("./templates/ecs/cb_app.json.tpl")
 
@@ -50,5 +46,9 @@ resource "aws_ecs_service" "main" {
   }
 
   depends_on = [aws_alb_listener.front_end, aws_iam_role_policy_attachment.ecs_task_execution_role]
+}
+
+resource "aws_ecr_repository" "worker" {
+    name  = "worker"
 }
 
